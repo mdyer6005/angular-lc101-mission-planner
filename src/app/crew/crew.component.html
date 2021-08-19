@@ -9,7 +9,7 @@
     </span>
     
     <ng-template #editCrewNameBlock>
-      <!-- Else, edit the crwe member -->
+      <!-- Else, edit the crew member -->
       <input #newCrewName (keyup.enter)="save(newCrewName.value, astronaut)" value="{{ astronaut.name }}" />
       <button (click)="save(newCrewName.value, astronaut)">save</button>
     </ng-template>

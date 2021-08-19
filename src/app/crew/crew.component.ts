@@ -21,7 +21,7 @@ export class CrewComponent implements OnInit {
   }
 
   add(memberName: string, isFirst: boolean) {
-    for (let i=0; i < this.crew.length; i++) {
+    for (let i = 0; i < this.crew.length; i++) {
       if (this.crew[i].name.toLowerCase() === memberName.toLowerCase()) {
         return;
       }
@@ -39,7 +39,7 @@ export class CrewComponent implements OnInit {
   }
 
   save(name: string, member: object) {
-    member['name'] = name;    
+    member['name'] = name;
     this.astronautBeingEdited = null;
-    }
+  }
 }
