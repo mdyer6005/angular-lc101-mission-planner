@@ -9,7 +9,10 @@ export class CrewComponent implements OnInit {
 
   inCrew: boolean = false;
   crew: object[] = [];
-
+  maxCrewSize: number = 3;
+  showPhoto: boolean = false;
+  photoToShow: string = "";
+  
   candidates: object[] = [
     {name: "Sally Ride", photo: 'https://handlers.education.launchcode.org/static/images/sally-ride.jpg'},
     {name: "Mae Jemison", photo: 'https://handlers.education.launchcode.org/static/images/mae-jemison.jpg'},
@@ -25,5 +28,47 @@ export class CrewComponent implements OnInit {
   ngOnInit() { }
 
   // Code the 'addCrewMember' function here:
+  addCrewMember(person: object) {
+    console.log("before check:", this.inCrew);
+    this.inCrew = this.isAlreadyInCrew(person);
+    console.log("after check:", this.inCrew);
+    if (this.inCrew) {
+      this.removeCrewMember(person);
+    } else if (this.crew.length < this.maxCrewSize) {
+      this.crew.push(person);
+    }    
+  }
+
+  removeCrewMember(person: object) {
+    let index = this.crew.indexOf(person);
+    this.crew.splice(index, 1);
+  }
+
+  isAlreadyInCrew(person: object) {
+    console.log(person);
+    for (let i=0; i < this.crew.length; i++) {
+      let crewName: string = this.crew[i]['name'];
+      let personName: string = person['name'];
+      if (crewName.toLowerCase() === personName.toLowerCase()) {
+        return true;
+      }      
+    }
+    return false;
+  }
+
+  crewIsFull() : boolean {
+    return this.crew.length >= this.maxCrewSize;
+  }
+
+  putUpPhoto(person) {
+    this.photoToShow = person['photo'];
+    this.showPhoto = true;
+  }
+
+  takeDownPhoto() {
+    this.photoToShow = "";
+    this.showPhoto = false;
+  }
+
 
 }
