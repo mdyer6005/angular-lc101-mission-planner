@@ -5,8 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './equipment.component.html',
   styleUrls: ['./equipment.component.css']
 })
-export class EquipmentComponent implements OnInit {
-   equipmentItems: object[] = [
+export class EquipmentComponent implements OnInit {   
+  equipmentItems: object[] = [
        {name: 'Duct Tape', mass: 0.5},
        {name: 'Space Camera', mass: 20},
        {name: 'Food', mass: 150},
@@ -21,11 +21,33 @@ export class EquipmentComponent implements OnInit {
    cargoMass: number = 0;
    maximumAllowedMass: number = 2000;
    maxItems: number = 10;
+   cargoThreshold: number = 200;
+   isNearMaxCargo: boolean = false;
 
    constructor() { }
 
    ngOnInit() { }
 
    // Code your addItem function here:
+   addItem(item: object) : boolean {
+     this.cargoHold.push(item);
+     this.cargoMass += item['mass'];
+     return this.isNearMaxCargoMass();
+   }
+
+   canAddItem(item: object) : boolean {
+     return this.cargoHold.length < this.maxItems && this.cargoMass + item['mass'] <= this.maximumAllowedMass;
+   }
+
+   isNearMaxCargoMass() : boolean {
+    this.isNearMaxCargo = (this.cargoMass + this.cargoThreshold) >= this.maximumAllowedMass;    
+    return this.isNearMaxCargo;
+   }
+
+   emptyCargoHold() {
+     this.cargoHold = [];
+     this.cargoMass = 0;
+     this.isNearMaxCargo = false;
+   }
    
 }
